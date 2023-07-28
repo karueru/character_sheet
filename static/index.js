@@ -55,7 +55,6 @@ function createNewItem() {
     sendPOSTRequest("character/create_new_item", { ...urlParams, })
         .then(responseData => {
             if (responseData) {
-                console.log("created");
             }
             else {
                 console.warn('Failed to get a valid response from API.');
@@ -70,7 +69,6 @@ function updateItemData(id, data, assignDict) {
     sendPOSTRequest("character/item/update", { _db: 'items', id: id, ...data })
         .then(responseData => {
             if (responseData) {
-                console.log(responseData)
                 for (const [key, elmnt] of Object.entries(assignDict)) {
                     if (key in responseData) {
                         if (elmnt.tagName.toLowerCase() == "input") {
@@ -116,7 +114,6 @@ function updateProgressBar(id) {
     let min = parseInt(document.getElementById(id + "_min").textContent);
     let percentage = 100 * min / (max || 1);
 
-    // console.log(bar, min, max, percentage);
     bar.style.width = `${percentage}%`;
 }
 
@@ -164,7 +161,6 @@ window.onload = function () {
     const progressBarElements = document.querySelectorAll(".progress[id]:not([id=''])");
 
     progressBarElements.forEach(function (element) {
-        // console.log(element.id);
         updateProgressBar(element.id);
     });
 }

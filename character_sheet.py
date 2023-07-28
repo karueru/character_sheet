@@ -35,4 +35,3 @@ if __name__ == '__main__':
 
     id = insert_new_player_character(argv[1])
     print(f'Inserted {id}')
-    pass

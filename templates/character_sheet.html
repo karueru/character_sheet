@@ -140,7 +140,7 @@
         data-bs-target="#body_{{item._id}}" aria-expanded="true" aria-controls="body_{{item._id}}"></button>
     </div>
 
-    <div id="body_{{item._id}}" class="card-body collapse show">
+    <div id="body_{{item._id}}" class="card-body collapse show pt-1">
       <div class="position-absolute bottom-0 end-0 p-2">
         <span class="badge bg-secondary fs-6">
           🎒<span class="wu" contenteditable="true"
@@ -154,11 +154,15 @@
         </span>
       </div>
 
-
       {%if item.image%}
-      <img src="{{item.image}}" class="card-img-top img-fluid" alt="" style="max-height: 180px; object-fit: contain;">
+      <img src="{{item.image}}" class="card-img-top img-fluid my-3" alt=""
+        style="max-height: 180px; object-fit: contain;">
       {%else%}
-      <img src="" class="card-img-top" alt="⬆️" onclick="uploadImage(uploadItemImageUrl, id='{{item._id}}')">
+      <div class="position-absolute bottom-0 start-0 px-2 p-1 fs-6">
+        <small>
+          <img src="" class="card-img-top" alt="️" onclick="uploadImage(uploadItemImageUrl, id='{{item._id}}')">
+        </small>
+      </div>
       {%endif%}
 
       <p class="card-text text-justify mb-3" contenteditable="true"

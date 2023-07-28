@@ -7,6 +7,18 @@ client = pymongo.MongoClient(
     "mongodb+srv://r8:2gajHpLf5erbuXh@r8.httejvu.mongodb.net/?retryWrites=true&w=majority")
 
 
+@app.route("/")
+def character_list():
+    char_list = client.player.character.find({})
+
+    addrs = [
+        f'<li><a href="/character?id={char.get("_id")}">{char.get("name")}</a></li>'
+        for char in char_list
+    ]
+
+    return '<ul>' + '\n'.join(addrs) + '</ul>'
+
+
 @app.route("/character")
 def character_sheet_page():
     if objId := request.args.get('id'):
@@ -34,8 +46,10 @@ def character_update():
     db = params.pop('_db')
 
     try:
-        params = {key: int(val) if val.isdigit() else val
-                  for key, val in params.items()}
+        params = {
+            key: int(val) if val.isdigit() else val
+            for key, val in params.items()
+        }
 
         __filter = {'_id': ObjectId(id)}
         update = {"$set": params}
@@ -89,8 +103,10 @@ def character_item_update():
     print(id, db, params)
 
     try:
-        params = {key: int(val) if val.isdigit() else val
-                  for key, val in params.items()}
+        params = {
+            key: int(val) if val.isdigit() else val
+            for key, val in params.items()
+        }
 
         __filter = {'_id': ObjectId(id)}
         update = {"$set": params}
@@ -114,4 +130,4 @@ def character_remove_item():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(host="0.0.0.0")
